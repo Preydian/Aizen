@@ -79,10 +79,10 @@ const settingsSimilar = {
 };
 
 // const APIUrl = process.env.PERSONAL_API_URL
-const APIUrl = process.env.UNI_API_URL
+const APIUrl = "https://seng365.csse.canterbury.ac.nz/api/v1"
 
 // const APIKey = process.env.MOVIE_API_KEY_ONE
-const APIKey = process.env.MOVIE_API_KEY_TWO
+const APIKey = "99da43fb"
 
 
 export {emailRegex, validNumberRegex, numberOnlyRegex, ageRatings, myAgeRatingSelect, myGenresSelect, myGenres, settings,
