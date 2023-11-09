@@ -78,11 +78,11 @@ const settingsSimilar = {
     slidesToScroll: 2
 };
 
-const APIUrl = "https://seng365.csse.canterbury.ac.nz/api/v1"
-// const APIUrl = "http://localhost:4941/api/v1"
+// const APIUrl = process.env.PERSONAL_API_URL
+const APIUrl = process.env.UNI_API_URL
 
-// const APIKey = "429e22d5"
-const APIKey = "99da43fb"
+// const APIKey = process.env.MOVIE_API_KEY_ONE
+const APIKey = process.env.MOVIE_API_KEY_TWO
 
 
 export {emailRegex, validNumberRegex, numberOnlyRegex, ageRatings, myAgeRatingSelect, myGenresSelect, myGenres, settings,
