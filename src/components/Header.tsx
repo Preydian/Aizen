@@ -422,7 +422,7 @@ function    Header() {
     }
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex">
-            <a className="navbar-brand">Film festival</a>
+            <a className="navbar-brand">Aizen</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="true" aria-label="Toggle navigation">
