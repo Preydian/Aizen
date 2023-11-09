@@ -1,4 +1,4 @@
-// importScripts('https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js');
+importScripts('https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js');
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
