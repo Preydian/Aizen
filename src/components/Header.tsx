@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import Select, {SingleValue} from "react-select";
 import {myAgeRatingSelect, myGenres, APIUrl, myGenresSelect, emailRegex, passwordRegex, runtimeRegex, nameRegex, letterAndNumberOnlyRegex, numberOnlyRegex, ageRatings} from "../Helper/constants";
@@ -10,6 +10,7 @@ import {convertRuntime, formatNumber} from "../Helper/formatting";
 function    Header() {
 
     const navigate = useNavigate();
+    const location = useLocation();
     const [errorMessageLogin, setErrorMessageLogin] = React.useState("");
     const [errorMessageRegister, setErrorMessageRegister] = React.useState("");
     const [errorMessageCreateFilm, setErrorMessageCreateFilm] = React.useState("");
@@ -28,11 +29,16 @@ function    Header() {
     const handleButtonClick = () => {
         // @ts-ignore
         let newQuery = document.getElementById("searchQuery").value;
-        if (!letterAndNumberOnlyRegex.test(newQuery)) {
-            navigate(`/films?startIndex=0&count=10`);
-        } else {
-            navigate(`/films?startIndex=0&count=10&q=${newQuery}`);
+        if (letterAndNumberOnlyRegex.test(newQuery)) {
+            localStorage.setItem("query", newQuery);
+            if (location.pathname.includes("/search")) {
+                window.location.reload()
+            } else {
+                navigate(`/search`);
+            }
+
         }
+
     }
 
     const checkSubmit = (event: React.KeyboardEvent<HTMLDivElement>, type: string) => {
@@ -430,44 +436,26 @@ function    Header() {
             </button>
             <div className="collapse navbar-collapse justify-content-between show" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                    {localStorage.getItem('token') !== null &&
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Manage Films
-                            </a>
-                            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a className="dropdown-item" data-toggle="modal" data-dismiss="modal" data-target="#createModal" onClick={filmCreated}>Create film</a>
-                                <Link className="dropdown-item" to={"/profile"}>
-                                    Edit films
-                                </Link>
-                            </div>
-                        </li>
-                    }
-                    <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Watch
-                        </a>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <Link className="nav-link" to={"/movies"}>
-                                Movies
-                            </Link>
-                            <Link className="nav-link" to={"/shows"}>
-                                Shows
-                            </Link>
-                        </div>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/movies"}>
+                            Movies
+                        </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/films?startIndex=0&count=10"}>
-                            Films
+                        <Link className="nav-link" to={"/shows"}>
+                            Shows
                         </Link>
                     </li>
                 </ul>
                 <ul className="navbar-nav ml-auto ">
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <div className="input-group mb-2 pr-1" style={{paddingTop: "0.75rem", width: "auto"}}>
-                            <input id="searchQuery" type="text" className="form-control" placeholder="Search films" style={{display: 'inline-block', borderTopRightRadius: "7px", borderBottomRightRadius: "7px"}} onChange={handleButtonClick} autoFocus={true}/>
+                            <input id="searchQuery" type="text" className="form-control" placeholder="Search films"
+                                   style={{display: 'inline-block', borderTopRightRadius: "7px", borderBottomRightRadius: "7px"}}
+                                   onKeyDown={(e) => {
+                                   if (e.key === 'Enter') {
+                                   handleButtonClick()
+                                   }}} autoFocus={true}/>
                             <div className="input-group-append" style={{display: 'inline-block', margin: 0, padding: 0}}>
                             </div>
                         </div>

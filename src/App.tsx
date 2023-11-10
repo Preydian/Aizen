@@ -10,6 +10,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Films from "./components/Films";
 import Movies from "./components/Movies";
 import Shows from "./components/Shows";
+import Search from "./components/Search";
 import Watch from "./components/Watch";
 import Film from "./components/Film";
 import Profile from "./components/Profile";
@@ -42,6 +43,7 @@ function App() {
               <Route path="/tv/:id" element={<Watch/>}/>
               <Route path="/profile" element={<Profile/>}/>
               <Route path="/films/:id" element={<Film/>}/>
+              <Route path="/search" element={<Search/>}/>
               <Route path="*" element={<NotFound/>}/>
             </Routes>
           </div>

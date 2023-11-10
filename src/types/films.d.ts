@@ -44,6 +44,14 @@ type apiMediaFull = {
     totalSeasons: string
 }
 
+type omdbSearch = {
+    Title: string,
+    Year: string,
+    imdbID: string,
+    Type: string,
+    Poster: string,
+}
+
 type filmReturn = {
     films: film[],
     count: number

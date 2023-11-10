@@ -5,7 +5,7 @@ const numberOnlyRegex = /^\d+$/;
 const passwordRegex = new RegExp(".{6,}")
 const nameRegex = new RegExp("[a-zA-Z]{1,64}")
 const runtimeRegex = /^[1-9]+hr\s\d{1,2}m$/;
-const letterAndNumberOnlyRegex = /^[a-zA-Z-0-9]+$/;
+const letterAndNumberOnlyRegex = /^[a-zA-Z0-9 ]+$/;
 
 const ageRatings = ["G", "PG", "M", "R13", "R16", "R18", "TBC"]
 

@@ -15,7 +15,6 @@ const Movies = () => {
 
     React.useEffect(() => {
         setFullFilmData([])
-        console.log('here')
         axios.get(`https://vidsrc.to/vapi/movie/new/${page}`)
             .then((response) => {
                 setAPIFilms(response.data.result.items)

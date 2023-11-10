@@ -77,4 +77,18 @@ const getFullData = async (APIFilms: apiMedia[]) => {
     return fullFilmInfo
 }
 
-export {mediaCardGeneration, getFullData}
+const getFullDataOMDB = async (APIFilms: omdbSearch[]) => {
+    let fullFilmInfo: Array<apiMediaFull> = []
+    for (let i = 0; i < APIFilms.length; i++) {
+        await axios.get(`https://www.omdbapi.com/?i=${APIFilms[i].imdbID}&apikey=${APIKey}`)
+            .then((response) => {
+                fullFilmInfo.push(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
+    return fullFilmInfo
+}
+
+export {mediaCardGeneration, getFullData, getFullDataOMDB}

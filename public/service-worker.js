@@ -1,11 +1,11 @@
-importScripts('https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js');
+// importScripts('https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js');
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('my-cache-name').then((cache) => {
             return cache.addAll([
                 '/',
-                '/index.html',
+                'index.html',
             ]);
         })
     );
