@@ -11,14 +11,17 @@ const Search = () => {
     const [page, setPage] = React.useState(1);
     const [errorFlag, setErrorFlag] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState("");
+    const [totalResults, setTotalResults] = React.useState(0);
+    const [totalPages, setTotalPages] = React.useState(0);
 
     React.useEffect(() => {
         setFullMediaData([])
         axios.get(`https://www.omdbapi.com/?s=${query}&page=${page}&apikey=${APIKey}`)
             .then((response) => {
-                console.log(response.data)
                 if (response.data["Response"] === 'True') {
                     setAPIFilms(response.data["Search"])
+                    setTotalResults(response.data["totalResults"])
+                    setTotalPages(Math.ceil(response.data["totalResults"] / 10))
                 } else {
                     setErrorFlag(true)
                     setErrorMessage(response.data["Error"])
@@ -35,7 +38,6 @@ const Search = () => {
         }
 
         fetchFullData()
-        console.log(APIFilms)
     }, [APIFilms])
 
     const list_of_films = () => {
@@ -48,17 +50,24 @@ const Search = () => {
     };
 
     const addPagination = () => {
-        return Array.from({length: Math.ceil(40 / 10)}, (_, i) => {
+        const pageRange = 2; // Number of pages to display below and above the current page
 
-            const pageNumber = 1 + i;
-            const active = page === pageNumber;
-            return (
-                <div className={`page-item ${active ? 'active' : ''}`} onClick={() => setPage(pageNumber)} key={pageNumber}>
-                    <li className="page-link">{pageNumber}</li>
-                </div>
-            );
-        });
+        const pages = [];
+        for (let i = page - pageRange; i <= page + pageRange; i++) {
+            if (i >= 1 && i <= totalPages) {
+                const active = i === page;
+                pages.push(
+                    <div className={`page-item ${active ? 'active' : ''}`} onClick={() => setPage(i)} key={i}>
+                        <li className="page-link">{i}</li>
+                    </div>
+                );
+            }
+        }
+
+        return pages;
     }
+
+
 
     if (errorFlag) {
         return (
@@ -119,9 +128,17 @@ const Search = () => {
                                         </div>
                                     }
                                     {addPagination()}
+                                    {page < (totalPages - 2) &&
+                                        <div className="page-item" onClick={() => setPage(totalPages)}>
+                                            <li className="page-link">Last</li>
+                                        </div>
+                                    }
                                 </ul>
                             </nav>
                         }
+                        <div className="mb-2">
+                            Total Results: {totalResults}
+                        </div>
                     </div>
                 </div>
             </div>
